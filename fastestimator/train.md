@@ -21,7 +21,7 @@ Next We use Mnist data as example to demonstrate various ways to launch training
 fastestimator command will be available after installation, in order to use the command,
 users should prepare entry point – python script that defines the get_estimator function. Here’s the usage:
 
-```
+``` 
 fastestimator train
 
 Required arguments:
@@ -45,13 +45,13 @@ Optional arguments:
 In this example, get_estimator takes default argument or no argument (see [mnist](https://github.build.ge.com/edisonaitk/fastestimator/blob/master/tutorial/mnist.py)).
 This format is best suited for running a quick single experiment.
 
-```
+``` bash
 fastestimator train --entry_point mnist.py
 ```
 
 if you want to save tfrecord to a specific direcoty (E.g, /data/mnist):
 
-```
+``` bash
 fastestimator train --entry_point mnist.py --input /data/mnist
 ```
 
@@ -59,7 +59,7 @@ fastestimator train --entry_point mnist.py --input /data/mnist
 
 In this case, user can pass arguments of get_estimator from command line. This is useful when experimenting different parameters.
 
-```
+``` bash
 fastestimator train \
 --entry_point mnist.py \
 --input /data/mnist \
@@ -73,7 +73,7 @@ fastestimator train \
 It may be cool to pass two or three arguments on terminal, but when the number of arguments is too
 big (say ~100), it doesn’t seem so cool anymore. Alternatively, you pass a [JSON file](https://github.build.ge.com/edisonaitk/fastestimator/blob/master/tutorial/mnist_args.json) that contains all arguments of get_estimator in a dictionary format.
 
-```
+``` bash
 python -m fastestimator.fit \
 --entry_point mnist.py \
 --input /data/mnist \
@@ -86,7 +86,7 @@ python -m fastestimator.fit \
 
 For users that prefer running codes in python console (e.g., Jupyter notebook, Spyder, Pycharm), check out [this notebook](https://github.build.ge.com/edisonaitk/fastestimator/blob/master/tutorial/mnist.ipynb) for python console training.
 
-```
+``` python
 def get_estimator(...)
 ...
 return estimator

@@ -21,7 +21,7 @@ There are 3 main API components that users will be interacting with: `Pipeline`,
 `Network` and `Estimator`. The workflow of FastEstimator is a 3-step process as shown below
 in the Mnist example.
 
-```
+``` python
 from fastestimator.pipeline.static.preprocess import Minmax, Onehot, Reshape
 from fastestimator.estimator.estimator import Estimator
 from fastestimator.pipeline.pipeline import Pipeline
@@ -83,7 +83,7 @@ For example, given two features x and y, if you want to proprocess them in the f
 
 * y: mnist scalar label, do nothing.
 
-```
+``` python
 from fastestimator.pipeline.dynamic.preprocess import Resize, Minmax
 from fastestimator.pipeline.static.preprocess import Reshape, Onehot
 import tensorflow as tf
@@ -101,7 +101,7 @@ pipeline = Pipeline(...
 If you have a specific preprocessing needs, you can customize a preprocessing module.
 Let’s add some noise to the image before the `Minmax`:
 
-```
+``` python
 from fastestimator.pipeline.dynamic.preprocess import AbstractPreprocessing
 from fastestimator.pipeline.dynamic.preprocess import Resize, Minmax
 import tensorflow as tf
@@ -140,7 +140,7 @@ For example, if we want the following process to happen during trainign loop:
 
 * y: apply one-hot encoder to scalar label
 
-```
+``` python
 from fastestimator.pipeline.dynamic.preprocess import Resize, Minmax
 from fastestimator.pipeline.static.preprocess import Reshape, Onehot
 import tensorflow as tf
@@ -158,7 +158,7 @@ pipeline = Pipeline(...
 
 Next, we add noise on the fly:
 
-```
+``` python
 from fastestimator.pipeline.static.preprocess import AbstractPreprocessing
 from fastestimator.pipeline.dynamic.preprocess import Resize, Minmax
 from fastestimator.pipeline.static.preprocess import Reshape, Onehot
@@ -194,7 +194,7 @@ for example, if we want to apply the following operation to mnist image:
 
 * random zoom between 0.8 and 1.0,
 
-```
+``` python
 from fastestimator.pipeline.static.preprocess import Reshape, Onehot
 from fastestimator.pipeline.static.augmentation import Augmentation
 from fastestimator.pipeline.dynamic.preprocess import Minmax
@@ -213,7 +213,7 @@ pipeline = Pipeline(...
 
 If you want the same augmentation to be applied to other features(when there is mask), just pass the same object:
 
-```
+``` python
 aug_obj = Augmentation(rotation_range=25.0, zoom_range=[0.8, 1.0])
 pipeline = Pipeline(....
                     feature_name=["image", "mask"],
@@ -224,7 +224,7 @@ pipeline = Pipeline(....
 User can also customize augmentation to achieve specific goal, for example, we want to add the
 same random noise for image and mask during training:
 
-```
+``` python
 from fastestimator.pipeline.static.augmentation import AbstractAugmentation
 from fastestimator.general.pipeline import Pipeline
 import tensorflow as tf
@@ -256,7 +256,7 @@ pipeline = Pipeline(....
 We can also filter out some example for imbalanced training, FastEstimator provides built-in filter based on scalar feature. For example,
 if we want to filter out example with label=1,3,5,7,9:
 
-```
+``` python
 from fastestimator.pipeline.static.filter import Filter
 from fastestimator.pipeline.pipeline import Pipeline
 
@@ -269,7 +269,7 @@ pipeline = Pipeline(....
 
 User can customize their own filter for more complex filters, for example, if we only want to use the example if sum of the image is greater than 10:
 
-```
+``` python
 from fastestimator.pipeline.static.filter import Filter
 from fastestimator.pipeline.pipeline import Pipeline
 
@@ -293,7 +293,7 @@ pipeline get the outcome in numpy.
 
 For example, if we want to produce tfrecords first and show two batches of pipeline outcome:
 
-```
+``` python
 from fastestimator.pipeline.static.preprocess import Minmax, Onehot, Reshape
 from fastestimator.pipeline.pipeline import Pipeline
 import tensorflow as tf
@@ -312,7 +312,7 @@ print(data)
 If we want to use existing tfrecords and show the outcome of pipleine, we can get rid of
 `train_data` and provide the tfrecords path in `show_batches`.
 
-```
+``` python
 from fastestimator.pipeline.static.preprocess import Minmax, Onehot, Reshape
 from fastestimator.pipeline.pipeline import Pipeline
 
@@ -332,7 +332,7 @@ In FastEstimator, Network contains the model architecture and optimization relat
 User can refer to [network-api](https://github.build.ge.com/pages/edisonaitk/fastestimator/api.html#network) to find detail arguments. Network arguments have full compatibility
 with `tf.keras`, here’s one example of network :
 
-```
+``` python
 from fastestimator.network.network import Network
 from fastestimator.application.lenet import LeNet
 
@@ -348,7 +348,7 @@ model argument takes an uncompiled `tf.keras.Model` instance. In order for pipel
 feed data to the correct layer, users have to make sure the Input/Output layer’s name matches
 with pipeline’s feature name.
 
-```
+``` python
 from fastestimator.pipeline.pipeline import Pipeline
 from fastestimator.network.network import Network
 import tensorflow as tf
@@ -371,8 +371,8 @@ network = Network(model=my_network(),
 
 All standard `tf.keras` loss functions are supported, in this case, you can simply provide the name of the loss as a string.
 Please refer official [Losses](https://www.tensorflow.org/api_docs/python/tf/keras/losses) for a complete list of `tf.keras` loss functions.
-
-```
+ 
+``` python
 network = Network(...,
                   loss="categorical_crossentropy",
                   ...)
@@ -380,7 +380,7 @@ network = Network(...,
 
 User can also define customized loss by tensorflow.keras:
 
-```
+``` python
 import tensorflow.keras.backend as K
 
 def rmse_loss(y_true, y_pred):
@@ -397,15 +397,15 @@ network = Network(...,
 Metrics also work similarly to loss. For standard Keras metrics (e.g., accuracy), you can simply specify the name of metric(s) in a list.
 Please refer official [Metrics](https://www.tensorflow.org/api_docs/python/tf/keras/metrics) for a complete list of metric functions.
 
-```
+``` python
 network = Network(...,
                   metrics=["acc"],
                   ...)
 ```
 
 User can also define customized metrics by tensorflow.keras:
-
-```
+ 
+``` python
 import tensorflow.keras.backend as K
 
 def dice(y_true, y_pred):
@@ -423,7 +423,7 @@ network = Network(....
 FastEstimator is compatible with optimizers from `tf.keras.optimizer`, please refer to [Optimizers](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers)
 for a compelete list of optimizers. One can simply use string with default optimizer settings:
 
-```
+``` python
 network = Network(...,
                   optimizer="adam",
                   ...)
@@ -431,7 +431,7 @@ network = Network(...,
 
 Users can also pass an optimizer instance with custom settings:
 
-```
+``` python
 network = Network(...,
                   optimizer=tf.keras.optimizers.Adam(lr=0.1, beta_1=0.95),
                   ...)
@@ -442,8 +442,8 @@ network = Network(...,
 In FastEstimator, model artifacts will be saved in a random path in /tmp by default.
 If user wants to save model to a specific directory, simply pass the directory to the `model_dir`:
 Once network instance is created, user can access the saving path by `network.model_dir`.
-
-```
+ 
+``` python
 network = Network(...,
                   model_dir="/home/model",
                   ...)
@@ -468,7 +468,7 @@ Users can use all callbacks in `tf.keras.callbacks` except for three:
 For other callbacks, please refer to [Callbacks](https://www.tensorflow.org/api_docs/python/tf/keras/callbacks) in Tensorflow Keras. Next, we present an example of using
 callbacks in FastEstimator:
 
-```
+``` python
 from fastestimator.estimator.callbacks import LearningRateScheduler, EarlyStopping
 from fastestimator.network.lrscheduler import CyclicScheduler
 from fastestimator.estimator.estimator import Estimator
@@ -494,7 +494,7 @@ By default, the number of training steps and validation steps for each epoch is 
 where num_process is the number of parallel training processes, in multi-GPU training, it is the number of GPUs.
 User can override the number of training and validation steps in the Estimator:
 
-```
+``` python
 estimator = Estimator(...,
                       steps_per_epoch=100,
                       validation_steps=100,
@@ -506,7 +506,7 @@ estimator = Estimator(...,
 During trainig, the training logs will appear every 100 steps as default, users can change
 the logging interval through `log_steps` argument, for example, if we want the log to appear every 10 steps:
 
-```
+``` python
 estimator = Estimator(...,
                       log_steps=10,
                       ...)
@@ -523,7 +523,7 @@ Outside of core API, FastEstimator offers some useful utilify functions that can
 `fastestimator.util.tfrecord.TFRecorder` can help you easily create tfrecord from any data.
 The usage of TFRecorder is very similar to `Pipeline`:
 
-```
+``` python
 from fastestimator.pipeline.dynamic.preprocess import Resize, Minmax
 from fastestimator.util.tfrecord import TFRecorder
 import tensorflow as tf
@@ -544,7 +544,7 @@ While creating tfrecords, both TFRecorder or FastEstimator produce a summary fil
 If you have previously built tfrecords outside of FastEstimator or TFRecorder, you can use `add_summary`
 to create the summary file for training.
 
-```
+``` python
 from fastestimator.util.tfrecord import add_summary, get_features
 
 # First, get feature name and related information

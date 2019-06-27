@@ -6,12 +6,12 @@ module.exports = {
             {text: 'Home', link: '/'},
             {text: 'Tutorial', 
              items: [ 
-                 {text: 'install', link: '/tutorial/install/'},
-                 {text: 'build model', link: '/tutorial/build/'},
-                 {text: 'train model', link: '/tutorial/train/'}
+                 {text: 'install', link: '/install.md'},
+                 {text: 'build model', link: '/model.md'},
+                 {text: 'train model', link: '/train.md'}
              ]
             },
-            {text: 'API', link: '/api/'},
+            {text: 'API', link: '/api.md'},
             {text: 'Github', link: 'https://github.com/fastestimator/fastestimator'}
         ],
         sidebar: 'auto',

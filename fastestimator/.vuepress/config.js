@@ -1,4 +1,7 @@
 module.exports = {
+    head: [
+        ['link', {rel: 'icon', href: './images/favicon.png'}]
+    ],
     title: 'FastEstimator',
     description: 'Just Playing Around',
     themeConfig: {

@@ -4,6 +4,7 @@ module.exports = {
     ],
     title: 'FastEstimator',
     description: 'Just Playing Around',
+    theme: 'theme',
     themeConfig: {
         nav: [
             {text: 'Home', link: '/'},
@@ -18,6 +19,6 @@ module.exports = {
             {text: 'Github', link: 'https://github.com/fastestimator/fastestimator'}
         ],
         sidebar: 'auto',
-        displayAllHeaders: true
+        displayAllHeaders: true,
     }
 }

@@ -4,9 +4,13 @@ This is the vuepress project of building a static documentation website for Fast
 * vuepress
 
 ## how to show the website
+in our vuepress website directory (fastestimator)
+
 ``` bash 
-vuepress dev
+(fastestimator)$ vuepress dev
 ```
+
+
 
 
 
